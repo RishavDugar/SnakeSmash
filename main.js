@@ -1,10 +1,26 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 480;
-canvas.height = 480;
+var x = window.matchMedia("(max-width: 600px)");
 
-const box = 30;
+if(x.matches)
+{   canvas.width = 320;
+    canvas.height = 320;
+}
+else
+{   canvas.width = 480;
+    canvas.height = 480;
+}
+
+
+var box;
+
+if(x.matches)
+{   box = 15;
+}
+else
+{   box = 30;
+}
 
 var touchInfo = 0;
 
