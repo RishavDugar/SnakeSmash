@@ -88,9 +88,9 @@ function eventListenerTouch(el, callback){
     startY,
     distX,
     distY,
-    threshold = 50, //required min distance traveled to be considered swipe
-    restraint = 30, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 40, // maximum time allowed to travel that distance
+    threshold = 30, //required min distance traveled to be considered swipe
+    restraint = 10, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 50, // maximum time allowed to travel that distance
     elapsedTime,
     startTime,
     handleswipe = callback || function(swipedir){}
@@ -264,7 +264,7 @@ function draw(){
         {   eventListenerType();}
     else if (touchInfo == 1)
     {   
-        eventListenerTouch(canvas,function(swipedir){
+        eventListenerTouch(ctx,function(swipedir){
             advanceSnakeByTouch(swipedir)
         })
     }
