@@ -36,6 +36,22 @@ let food ={
     y: Math.floor(Math.random()*16) * box
 }
 
+function foodonsnake(foodX,foodY){
+    //let foodCheck = 0;
+    for(let i=0;i<snake.length;i++){
+        if(foodX == snake[i].x && foodY == snake[i].y)
+        {   food ={
+                x: Math.floor(Math.random()*16) * box,
+                y: Math.floor(Math.random()*16) * box
+            }
+            foodonsnake(food.x,food.y);
+        }
+    }
+
+}
+
+foodonsnake(food.x,food.y);
+
 
 
 let score = 0;
@@ -108,18 +124,6 @@ function drawSnake(){
     }
 }
 
-function foodonsnake(){
-
-    for(let i=0;i<snake.length;i++){
-        if(food.x == snake[i].x && food.y == snake[i].y)
-            food ={
-                x: Math.floor(Math.random()*16) * box,
-                y: Math.floor(Math.random()*16) * box
-            }
-    }
-
-    
-}
 
 function didSnakeEat(){
     if(snakeX == food.x && snakeY == food.y){
@@ -130,7 +134,7 @@ function didSnakeEat(){
             x: Math.floor(Math.random()*16) * box,
             y: Math.floor(Math.random()*16) * box
         }
-        foodonsnake();
+        foodonsnake(food.x,food.y);
 
     }
     else
