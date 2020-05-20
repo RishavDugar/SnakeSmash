@@ -1,0 +1,90 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
+
+body {
+  font-family: 'PAcifico',cursive;
+  font-weight: 400;
+  height: 100vh;
+  background-image: linear-gradient(to bottom right, pink 30%, cyan); }
+
+.title {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  transform: translateX(-50%);
+  font-size: 8rem;
+  background-image: linear-gradient(82deg, white 20%, lime);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: darkgreen;
+  -webkit-text-stroke-width: 1px;
+  text-transform: capitalize;
+  letter-spacing: 1rem; }
+
+#scoreboard {
+  color: wheat;
+  -webkit-text-stroke: orange;
+  -webkit-text-stroke-width: 4px;
+  font-size: 5rem;
+  position: absolute;
+  top: 47%;
+  left: 75%;
+  font-family: sans-serif; }
+
+#score {
+  font-size: 7rem;
+  color: white;
+  -webkit-text-stroke: orange;
+  -webkit-text-stroke-width: 4px; }
+
+.u-center-text {
+  text-align: center; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem; }
+
+.u-margin-top-small {
+  margin-top: 6rem; }
+
+.u-margin-top-big {
+  margin-top: 8rem; }
+
+.u-margin-top-huge {
+  margin-top: 10rem; }
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem; }
+
+.u-strikethrough {
+  text-decoration: line-through;
+  color: red; }
+
+#canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -35%);
+  border: yellow 10px dashed; }
+
+.snakeLogo {
+  height: 60vh;
+  width: 60vh;
+  background-image: url(../img/snake.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 5%;
+  top: 25%; }
