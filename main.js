@@ -264,8 +264,8 @@ function draw(){
         {   eventListenerType();}
     else if (touchInfo == 1)
     {   
-        eventListenerTouch(ctx,function(swipedir){
-            advanceSnakeByTouch(swipedir)
+        eventListenerTouch(canvas,function(swipedir){
+            advanceSnakeByTouch(swipedir);
         })
     }
 }
