@@ -164,9 +164,9 @@ function eventListenerTouch(el, callback){
     startY,
     distX,
     distY,
-    threshold = 40, //required min distance traveled to be considered swipe
+    threshold = 80, //required min distance traveled to be considered swipe
     restraint = 40, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 400, // maximum time allowed to travel that distance
+    allowedTime = 600, // maximum time allowed to travel that distance
     elapsedTime,
     startTime,
     handleswipe = callback || function(swipedir){}
@@ -192,10 +192,10 @@ function eventListenerTouch(el, callback){
         elapsedTime = new Date().getTime() - startTime // get time elapsed
         if (elapsedTime <= allowedTime){ // first condition for awipe met
             if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
-                swipedir = (distX < 0)? "left" : "right" // if dist traveled is negative, it indicates left swipe
+                swipedir = (distX < 0)? 37 : 39 // if dist traveled is negative, it indicates left swipe
             }
             else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
-                swipedir = (distY < 0)? "up" : "down" // if dist traveled is negative, it indicates up swipe
+                swipedir = (distY < 0)? 38 : 40 // if dist traveled is negative, it indicates up swipe
             }
         }
         handleswipe(swipedir)
@@ -331,21 +331,21 @@ function advanceSnake(event){
 
 }
 
-function advanceSnakeByTouch(swipedir){
+function advanceSnakeByTouch(num){
     
-    if(swipedir=="left" && d!=39)
+    if(num==37 && d!=39)
         {d=37;
         translator(d);
     }
-    else if(swipedir=="up" && d!=40)
+    else if(num==38 && d!=40)
         {d=38;
         translator(d);
     }
-    else if(swipedir=="right" && d!=37)
+    else if(num==39 && d!=37)
         {d=39;
         translator(d);
     }
-    else if(swipedir=="down" && d!=38)
+    else if(num==40 && d!=38)
         {d=40;
         translator(d);
     }
@@ -375,8 +375,12 @@ function draw(){
     }
     
 }
-var game;
-if(touchInfo==0)
-    game = setInterval(draw,50);
+
+var elapseTime;
+if(touchInfo)
+    elapseTime=600;
 else
-    game = setInterval(draw,500);
+    elapseTime=100;
+
+let game = setInterval(draw,elapseTime);
+
