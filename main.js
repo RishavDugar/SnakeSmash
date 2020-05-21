@@ -12,7 +12,6 @@ else
     canvas.height = 480;
 }
 
-
 var box;
 
 if(x.matches)
@@ -22,13 +21,58 @@ else
 {   box = 30;
 }
 
+
+var noOfBlocks = Math.floor(Math.random() * 2 + 3);
+var lengthOfBlock = new Array();
+for(let i=0;i<noOfBlocks;i++)
+{   
+    lengthOfBlock[i] = {
+        length : Math.round(Math.random() * 6 + 2),
+        orientation : Math.round(Math.random() * 2)
+    }
+}
+var posOfBlock = new Array();
+for(let i=0;i<noOfBlocks;i++)
+{   if(lengthOfBlock[i].orientation==1)
+    {
+        posOfBlock[i] = {
+            x : Math.round( Math.random() * (15 - lengthOfBlock[i].length)),
+            y : Math.round(Math.random() * 15 )
+        }
+    }
+    else
+    {
+        posOfBlock[i] = {
+            y : Math.round(Math.random() * (15 - lengthOfBlock[i].length)),
+            x : Math.round(Math.random() * 15 )
+        }
+    }
+}
+
+function createMaze(){
+    for(let i=0;i<noOfBlocks;i++)
+    {   if(lengthOfBlock[i].orientation==1)
+        {   ctx.fillStyle = "brown";
+            ctx.fillRect(posOfBlock[i].x * box,posOfBlock[i].y * box,lengthOfBlock[i].length * box,box);
+            
+        }
+        else
+        {   ctx.fillStyle = "brown";
+            ctx.fillRect(posOfBlock[i].x * box,posOfBlock[i].y * box,box,lengthOfBlock[i].length * box);
+            
+        }
+    }
+}
+
+
 var touchInfo = 0;
 
 if ("ontouchstart" in document.documentElement)
 {
     touchInfo = 1;
 }
-
+else
+console.log("not");
 
 var foodImg = new Array();
 
@@ -47,12 +91,16 @@ snake[0] = {
     y: 7 * box
 }
 
+let snakeX=snake[0].x;
+
+let snakeY=snake[0].y;
+
 let food ={
     x: Math.floor(Math.random()*16) * box,
     y: Math.floor(Math.random()*16) * box
 }
 
-function foodonsnake(foodX,foodY){
+function foodOnSnake(foodX,foodY){
     //let foodCheck = 0;
     for(let i=0;i<snake.length;i++){
         if(foodX == snake[i].x && foodY == snake[i].y)
@@ -60,15 +108,43 @@ function foodonsnake(foodX,foodY){
                 x: Math.floor(Math.random()*16) * box,
                 y: Math.floor(Math.random()*16) * box
             }
-            foodonsnake(food.x,food.y);
+            foodOnSnake(food.x,food.y);
         }
     }
 
 }
 
-foodonsnake(food.x,food.y);
+function foodOnMaze(foodX,foodY){
+    //let foodCheck = 0;
+    for(let i=0;i<noOfBlocks;i++){
+        for(let j=0;j<lengthOfBlock[i].length;j++)
+        {
+            if(lengthOfBlock[i].orientation==1){
+                if( foodX == ((posOfBlock[i].x + j) * box) && foodY == ( posOfBlock[i].y * box))
+                {   food ={
+                        x: Math.floor(Math.random()*16) * box,
+                        y: Math.floor(Math.random()*16) * box
+                    }
+                    foodOnMaze(food.x,food.y);
+                }
+            }
+            else{
+                if( foodX == ((posOfBlock[i].x + j) * box) && foodY == ( posOfBlock[i].y * box))
+                {   food ={
+                        x: Math.floor(Math.random()*16) * box,
+                        y: Math.floor(Math.random()*16) * box
+                    }
+                    foodOnMaze(food.x,food.y);
+                }
+            }
+        }
+    }
 
+}
 
+foodOnSnake(food.x,food.y);
+
+foodOnMaze(food.x,food.y);
 
 let score = 0;
 
@@ -127,31 +203,37 @@ function eventListenerTouch(el, callback){
     }, false)
 }
 
-
-    
-let snakeX=snake[0].x;
-
-let snakeY=snake[0].y;
-
 function drawSnake(){
     for( let i = 0; i<snake.length; i++){
-        ctx.fillStyle = "yellowgreen";
+        if(i==0){
+            ctx.fillStyle = "yellowgreen";
+        }
+        else
+            ctx.fillStyle = "#00FE8D";
         ctx.fillRect(snake[i].x,snake[i].y,box,box);
     }
 }
 
+function removeScore(){
+    setTimeout(function(){
+        document.getElementById("popupscore").style.visibility = "hidden";
+    },400);
+
+}
 
 function didSnakeEat(){
     if(snakeX == food.x && snakeY == food.y){
         score=score+10;
+        document.getElementById("popupscore").style.visibility = "visible";
         document.getElementById("score").innerHTML = score;
         f = Math.floor(Math.random() * 3);
         food = {
             x: Math.floor(Math.random()*16) * box,
             y: Math.floor(Math.random()*16) * box
         }
-        foodonsnake(food.x,food.y);
-
+        foodOnSnake(food.x,food.y);
+        foodOnMaze(food.x,food.y);
+        removeScore();  
     }
     else
     {    snake.pop();
@@ -160,12 +242,10 @@ function didSnakeEat(){
 }
 
 function collision(){
-    var flag=0;
 
     for( let i = 3; i<snake.length; i++){
         if(snakeX == snake[i].x && snakeY == snake[i].y)
         {   return true;
-            flag=1;
         }
     }
 
@@ -173,10 +253,34 @@ function collision(){
 
 }
 
+function collisionWithMaze(){
+    for(let i=0;i<noOfBlocks;i++){
+        for(let j=0;j<lengthOfBlock[i].length;j++)
+        {
+            if(lengthOfBlock[i].orientation==1){
+                if( snakeX == ((posOfBlock[i].x + j) * box) && snakeY == ( posOfBlock[i].y * box))
+                    return true;
+            }
+            else{
+                if( snakeY == ((posOfBlock[i].y + j) * box) && snakeX == ( posOfBlock[i].x * box))
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+while(collisionWithMaze()){
+    snake[0].x= Math.round(Math.random()*16) * box;
+    snake[0].y= Math.round(Math.random()*16) * box;
+    snakeX=snake[0].x;
+    snakeY=snake[0].y;
+}
+
 function didSnakeCollide(){
-    if((snakeX < 0) || (snakeX > (15 * box)) || (snakeY < 0) || (snakeY > (15 * box)) || collision())
+    if((snakeX < 0) || (snakeX > (15 * box)) || (snakeY < 0) || (snakeY > (15 * box)) || collision() || collisionWithMaze())
     {    clearInterval(game);
-         alert("GAME OVER!");
+         document.getElementById("popup").style.visibility = "visible";
     }
 }
 
@@ -252,8 +356,9 @@ var grassBG =new Image();
 grassBG.src="img/grass.jpg";
 
 function draw(){
-
     ctx.drawImage(grassBG,0,0,480,480);
+
+    createMaze();
 
     drawSnake();
 
@@ -264,10 +369,11 @@ function draw(){
         {   eventListenerType();}
     else if (touchInfo == 1)
     {   
-        eventListenerTouch(canvas,function(swipedir){
+        eventListenerTouch(window,function(swipedir){
             advanceSnakeByTouch(swipedir);
         })
     }
+    
 }
 
 let game = setInterval(draw,50);

@@ -13,6 +13,8 @@ body {
   font-family: 'PAcifico',cursive;
   font-weight: 400;
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
   background-image: linear-gradient(to bottom right, pink 30%, cyan); }
 
 .title {
@@ -26,7 +28,7 @@ body {
   text-align: center;
   text-transform: capitalize;
   letter-spacing: 1rem;
-  transform: translateY(50%); }
+  transform: translateY(30%); }
   @media screen and (max-width: 1400px) {
     .title {
       font-size: 8rem;
@@ -74,6 +76,7 @@ body {
       transform: translateX(-50%); } }
   @media screen and (max-width: 730px) {
     #scoreboard {
+      -webkit-text-stroke-width: 2px;
       font-size: 4rem; } }
   @media screen and (max-width: 525px) {
     #scoreboard {
@@ -82,7 +85,8 @@ body {
   @media screen and (max-width: 440px) {
     #scoreboard {
       top: 22%;
-      font-size: 3rem; } }
+      font-size: 3rem;
+      -webkit-text-stroke-width: 1px; } }
   @media screen and (max-width: 390px) {
     #scoreboard {
       font-size: 2.4rem;
@@ -102,6 +106,27 @@ body {
   @media screen and (max-width: 390px) {
     #score {
       font-size: 4.2rem; } }
+
+.link, .link:visited {
+  text-decoration: none;
+  color: white;
+  -webkit-text-stroke: violet;
+  -webkit-text-stroke-width: 2px;
+  font-size: 4rem;
+  transition: all 0.2s; }
+
+.link:hover {
+  font-size: 5rem; }
+
+.tenplus {
+  color: white;
+  -webkit-text-stroke: violet;
+  -webkit-text-stroke-width: 5px;
+  font-size: 20rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .u-center-text {
   text-align: center; }
@@ -128,6 +153,16 @@ body {
   text-decoration: line-through;
   color: red; }
 
+.button {
+  background-color: pink;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 40%);
+  text-align: center; }
+
 #canvas {
   position: absolute;
   left: 50%;
@@ -151,6 +186,37 @@ body {
   position: absolute;
   left: 5%;
   top: 25%; }
-  @media screen and (max-width: 2000px) {
+  @media screen and (max-width: 1440px) {
     .snakeLogo {
       visibility: hidden; } }
+
+#popup {
+  background-color: rgba(0, 0, 139, 0.4);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden; }
+
+#popupscore {
+  background-color: rgba(255, 165, 0, 0.1);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden; }
+
+.gameover {
+  height: 15vh;
+  width: 20vw;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url(../img/gameover.png);
+  background-size: cover;
+  background-position: center; }
