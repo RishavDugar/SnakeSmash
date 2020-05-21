@@ -164,9 +164,9 @@ function eventListenerTouch(el, callback){
     startY,
     distX,
     distY,
-    threshold = 30, //required min distance traveled to be considered swipe
-    restraint = 10, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 50, // maximum time allowed to travel that distance
+    threshold = 40, //required min distance traveled to be considered swipe
+    restraint = 40, // maximum distance allowed at the same time in perpendicular direction
+    allowedTime = 400, // maximum time allowed to travel that distance
     elapsedTime,
     startTime,
     handleswipe = callback || function(swipedir){}
@@ -375,5 +375,7 @@ function draw(){
     }
     
 }
-
-let game = setInterval(draw,50);
+if(touchInfo==0)
+    let game = setInterval(draw,50);
+else
+    let game = setInterval(draw,500);
