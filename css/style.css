@@ -114,9 +114,33 @@ body {
   -webkit-text-stroke-width: 2px;
   font-size: 4rem;
   transition: all 0.2s; }
+  @media screen and (max-width: 1000px) {
+    .link, .link:visited {
+      font-size: 5rem; } }
+  @media screen and (max-width: 600px) {
+    .link, .link:visited {
+      font-size: 3.5rem; } }
+  @media screen and (max-width: 450px) {
+    .link, .link:visited {
+      font-size: 3rem; } }
+  @media screen and (max-width: 390px) {
+    .link, .link:visited {
+      font-size: 2.4rem; } }
 
 .link:hover {
   font-size: 5rem; }
+  @media screen and (max-width: 1000px) {
+    .link:hover {
+      font-size: 4.5rem; } }
+  @media screen and (max-width: 600px) {
+    .link:hover {
+      font-size: 3.7rem; } }
+  @media screen and (max-width: 450px) {
+    .link:hover {
+      font-size: 3.2rem; } }
+  @media screen and (max-width: 390px) {
+    .link:hover {
+      font-size: 2.6rem; } }
 
 .tenplus {
   color: white;
@@ -186,6 +210,14 @@ body {
   position: absolute;
   left: 5%;
   top: 25%; }
+  @media screen and (max-width: 2100px) {
+    .snakeLogo {
+      height: 50vh;
+      width: 50vh; } }
+  @media screen and (max-width: 1700px) {
+    .snakeLogo {
+      height: 40vh;
+      width: 40vh; } }
   @media screen and (max-width: 1440px) {
     .snakeLogo {
       visibility: hidden; } }
@@ -197,8 +229,7 @@ body {
   z-index: 100;
   position: absolute;
   top: 0;
-  left: 0;
-  visibility: hidden; }
+  left: 0; }
 
 #popupscore {
   background-color: rgba(255, 165, 0, 0.1);
@@ -220,3 +251,11 @@ body {
   background-image: url(../img/gameover.png);
   background-size: cover;
   background-position: center; }
+  @media screen and (max-width: 1000px) {
+    .gameover {
+      height: 20vh;
+      width: 60vw; } }
+  @media screen and (max-width: 1000px) {
+    .gameover {
+      height: 25vh;
+      width: 70vw; } }
