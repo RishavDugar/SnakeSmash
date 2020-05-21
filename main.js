@@ -375,7 +375,8 @@ function draw(){
     }
     
 }
+var game;
 if(touchInfo==0)
-    let game = setInterval(draw,50);
+    game = setInterval(draw,50);
 else
-    let game = setInterval(draw,500);
+    game = setInterval(draw,500);
