@@ -21,7 +21,7 @@ else
 {   box = 30;
 }
 
-
+////////////MAZE
 var noOfBlocks = Math.floor(Math.random() * 2 + 3);
 var lengthOfBlock = new Array();
 for(let i=0;i<noOfBlocks;i++)
@@ -64,7 +64,7 @@ function createMaze(){
     }
 }
 
-
+//////////CHECKING TOOUCHSCREEN
 var touchInfo = 0;
 
 if ("ontouchstart" in document.documentElement)
@@ -155,37 +155,34 @@ function eventListenerType(){
     document.addEventListener("keydown",advanceSnake);
 }
 
+var swipedir = 0,
+startX,
+startY,
+distX,
+distY,
+threshold = 80, //required min distance traveled to be considered swipe
+restraint = 40, // maximum distance allowed at the same time in perpendicular direction
+allowedTime = 500, // maximum time allowed to travel that distance
+elapsedTime,
+startTime;
 
-function eventListenerTouch(el, callback){
-  
-    var touchsurface = el,
-    swipedir,
-    startX,
-    startY,
-    distX,
-    distY,
-    threshold = 80, //required min distance traveled to be considered swipe
-    restraint = 40, // maximum distance allowed at the same time in perpendicular direction
-    allowedTime = 600, // maximum time allowed to travel that distance
-    elapsedTime,
-    startTime,
-    handleswipe = callback || function(swipedir){}
-  
-    touchsurface.addEventListener('touchstart', function(e){
+function eventListenerTouch(){
+   
+    window.addEventListener('touchstart', function(e){
         var touchobj = e.changedTouches[0]
-        swipedir = 'none'
+        swipedir = 0
         dist = 0
         startX = touchobj.pageX
         startY = touchobj.pageY
         startTime = new Date().getTime() // record time when finger first makes contact with surface
         e.preventDefault()
-    }, false)
+    }, false);
   
-    touchsurface.addEventListener('touchmove', function(e){
+    window.addEventListener('touchmove', function(e){
         e.preventDefault() // prevent scrolling when inside DIV
-    }, false)
+    }, false);
   
-    touchsurface.addEventListener('touchend', function(e){
+    window.addEventListener('touchend', function(e){
         var touchobj = e.changedTouches[0]
         distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
         distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
@@ -197,10 +194,14 @@ function eventListenerTouch(el, callback){
             else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint){ // 2nd condition for vertical swipe met
                 swipedir = (distY < 0)? 38 : 40 // if dist traveled is negative, it indicates up swipe
             }
+            else 
+                swipedir = 0;
         }
-        handleswipe(swipedir)
+        
         e.preventDefault()
-    }, false)
+    }, false);
+    console.log(swipedir);
+    advanceSnakeByTouch(swipedir);
 }
 
 function drawSnake(){
@@ -369,16 +370,15 @@ function draw(){
         {   eventListenerType();}
     else if (touchInfo == 1)
     {   
-        eventListenerTouch(window,function(swipedir){
-            advanceSnakeByTouch(swipedir);
-        })
+        eventListenerTouch();
+        
     }
     
 }
 
 var elapseTime;
 if(touchInfo)
-    elapseTime=600;
+    elapseTime=500;
 else
     elapseTime=100;
 
