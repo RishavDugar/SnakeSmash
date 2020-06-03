@@ -282,6 +282,9 @@ function didSnakeCollide(){
     if((snakeX < 0) || (snakeX > (15 * box)) || (snakeY < 0) || (snakeY > (15 * box)) || collision() || collisionWithMaze())
     {    clearInterval(game);
          document.getElementById("popup").style.visibility = "visible";
+         document.getElementById("link").addEventListener("touchstart", function () {
+            window.location.reload();
+         });
     }
 }
 
